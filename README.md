@@ -41,9 +41,8 @@ This is a personal portfolio website developed to showcase my skills, projects, 
 portfolio-website/
 │── index.html
 │── README.md
-│── screenshots/
-│    ├── preview.png
-│    └── mobile.png
+│── preview.png
+│── mobile.png
 ```
 
 ---
@@ -96,11 +95,11 @@ https://sravanthi-jampala-portfolio.vercel.app/
 
 ### 🖥️ Homepage Preview
 
-![Homepage](screenshots/preview.png)
+![Homepage](preview.png)
 
 ### 📱 Mobile View
 
-![Mobile View](screenshots/mobile.jpeg)
+![Mobile View](mobile.jpeg)
 
 > 📌 Place your screenshots inside the `screenshots/` folder in your repository.
 
