@@ -101,7 +101,6 @@ https://sravanthi-jampala-portfolio.vercel.app/
 
 ![Mobile View](mobile.jpeg)
 
-> 📌 Place your screenshots inside the `screenshots/` folder in your repository.
 
 ---
 
