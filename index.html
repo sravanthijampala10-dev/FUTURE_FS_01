@@ -1,0 +1,784 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Portfolio | Jampala Guru Sravanthi</title>
+  <meta name="description" content="Portfolio of Jampala Guru Sravanthi — CS-AI student, web & Android developer." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=DM+Sans:wght@300;400;500&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    /* ── Reset ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    /* ── Dark Theme (default) ── */
+    :root,
+    [data-theme="dark"] {
+      --bg:         #0d0d0d;
+      --bg2:        #111111;
+      --surface:    #161616;
+      --surface2:   #1c1c1c;
+      --border:     #2a2a2a;
+      --border-hi:  #3a3a3a;
+      --text:       #e8e2d9;
+      --muted:      #7a7167;
+      --accent:     #c9a86c;
+      --accent2:    #e8c98a;
+      --white:      #f5f0e8;
+      --shadow:     rgba(0,0,0,0.5);
+      --header-bg:  rgba(13,13,13,0.88);
+      --grain-op:   0.4;
+    }
+
+    /* ── Light Theme ── */
+    [data-theme="light"] {
+      --bg:         #faf8f3;
+      --bg2:        #f3f0e8;
+      --surface:    #ede8dc;
+      --surface2:   #e8e3d8;
+      --border:     #ddd8cc;
+      --border-hi:  #c8c0b0;
+      --text:       #1a1814;
+      --muted:      #6b6559;
+      --accent:     #b8813a;
+      --accent2:    #c89050;
+      --white:      #1a1814;
+      --shadow:     rgba(26,24,20,0.12);
+      --header-bg:  rgba(250,248,243,0.94);
+      --grain-op:   0.15;
+    }
+
+    /* ── Shared Tokens ── */
+    :root {
+      --font-head:  'Playfair Display', serif;
+      --font-disp:  'Cormorant Garamond', Georgia, serif;
+      --font-ui:    'Syne', sans-serif;
+      --font-body:  'DM Sans', sans-serif;
+      --radius:     10px;
+      --max:        1100px;
+      --transition: 0.3s cubic-bezier(.4,0,.2,1);
+    }
+
+    html { scroll-behavior: smooth; font-size: 16px; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-body);
+      font-weight: 300;
+      line-height: 1.7;
+      overflow-x: hidden;
+      transition: background var(--transition), color var(--transition);
+    }
+    a { color: inherit; text-decoration: none; }
+    ul { list-style: none; }
+    img { display: block; max-width: 100%; }
+
+    /* ── Scrollbar ── */
+    ::-webkit-scrollbar { width: 5px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 99px; }
+
+    /* ── Utility ── */
+    .container { max-width: var(--max); margin: 0 auto; padding: 0 1.5rem; }
+    .section { padding: 6rem 0; }
+    .section.alt { background: var(--surface); }
+    .section-title {
+      font-family: var(--font-head);
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      color: var(--white);
+      margin-bottom: 0.25rem;
+      position: relative;
+      display: inline-block;
+    }
+    .section-title::after {
+      content: '';
+      display: block;
+      width: 48px; height: 3px;
+      background: var(--accent);
+      margin-top: 0.4rem;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 0.7rem 1.8rem;
+      border: 1.5px solid var(--accent);
+      color: var(--accent);
+      font-family: var(--font-body);
+      font-size: 0.85rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      border-radius: 3px;
+      cursor: pointer;
+      transition: background var(--transition), color var(--transition);
+      background: transparent;
+    }
+    .btn:hover { background: var(--accent); color: var(--bg); }
+    .btn-ghost {
+      border-color: var(--border);
+      color: var(--muted);
+    }
+    .btn-ghost:hover { background: var(--border); color: var(--white); }
+    .btn-solid {
+      background: var(--text);
+      color: var(--bg);
+      border-color: var(--text);
+    }
+    .btn-solid:hover { background: var(--accent); border-color: var(--accent); color: var(--bg); }
+
+    /* ── Grain overlay ── */
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 9999;
+      opacity: var(--grain-op);
+    }
+
+    /* ── Header ── */
+    .site-header {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: var(--header-bg);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      transition: background var(--transition);
+    }
+    .header-inner {
+      display: flex; align-items: center; justify-content: space-between;
+      height: 64px;
+    }
+    .logo {
+      font-family: var(--font-head);
+      font-size: 1.2rem;
+      font-style: italic;
+      color: var(--white);
+    }
+    .logo span { color: var(--accent); }
+    .nav-menu { display: flex; gap: 2rem; align-items: center; }
+    .nav-link {
+      font-size: 0.8rem; font-weight: 400;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--muted);
+      transition: color var(--transition);
+      position: relative;
+    }
+    .nav-link::after {
+      content: ''; position: absolute; left: 0; bottom: -3px;
+      width: 0; height: 1px; background: var(--accent);
+      transition: width var(--transition);
+    }
+    .nav-link:hover { color: var(--accent); }
+    .nav-link:hover::after { width: 100%; }
+
+    /* ── Theme Toggle ── */
+    .theme-toggle {
+      display: flex; align-items: center;
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 99px; padding: 3px;
+      cursor: pointer; gap: 2px;
+      transition: all var(--transition);
+    }
+    .theme-toggle:hover { border-color: var(--accent); }
+    .toggle-icon {
+      width: 26px; height: 26px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 13px;
+      transition: all var(--transition);
+    }
+    [data-theme="dark"] .toggle-icon.moon  { background: var(--accent); }
+    [data-theme="dark"] .toggle-icon.sun   { background: transparent; }
+    [data-theme="light"] .toggle-icon.sun  { background: var(--accent); color: #fff; }
+    [data-theme="light"] .toggle-icon.moon { background: transparent; }
+
+    .nav-toggle { display: none; background: none; border: none; cursor: pointer; }
+    .bar { display: block; width: 22px; height: 2px; background: var(--text); margin: 4px 0; }
+
+    /* ── Hero ── */
+    .hero {
+      min-height: 100vh; display: flex; align-items: center;
+      padding-top: 64px; position: relative; overflow: hidden;
+    }
+    .hero::before {
+      content: ''; position: absolute;
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(201,168,108,0.08) 0%, transparent 70%);
+      top: 50%; left: 60%; transform: translate(-50%,-50%);
+      pointer-events: none;
+    }
+    .hero-inner {
+      display: grid; grid-template-columns: 1fr auto;
+      gap: 4rem; align-items: center; width: 100%;
+    }
+    .hero-eyebrow {
+      font-size: 0.78rem; letter-spacing: 0.18em;
+      text-transform: uppercase; color: var(--accent); margin-bottom: 1.2rem;
+    }
+    .hero h1 {
+      font-family: var(--font-head);
+      font-size: clamp(2.6rem, 6vw, 5rem);
+      line-height: 1.1; color: var(--white); margin-bottom: 1.5rem;
+    }
+    .hero h1 em { color: var(--accent); font-style: italic; }
+    .hero-sub {
+      color: var(--muted); max-width: 480px;
+      margin-bottom: 2.2rem; font-size: 1.05rem;
+    }
+    .hero-cta { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .monogram {
+      width: 160px; height: 160px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--surface), var(--bg));
+      border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--font-head); font-size: 3rem; color: var(--accent);
+      position: relative; flex-shrink: 0;
+    }
+    .monogram::before {
+      content: ''; position: absolute; inset: -8px; border-radius: 50%;
+      border: 1px dashed var(--border);
+      animation: spin 20s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* ── About ── */
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3.5rem; margin-top: 2.5rem; }
+    .about-grid p { color: var(--muted); margin-bottom: 1.5rem; }
+    .about-list li { padding: 0.35rem 0; border-bottom: 1px solid var(--border); font-size: 0.93rem; }
+    .about-list li strong { color: var(--accent); margin-right: 0.5rem; }
+    .about-cards { display: grid; gap: 1rem; }
+    .card {
+      background: var(--bg); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 1.4rem 1.6rem;
+      transition: border-color var(--transition), transform var(--transition);
+    }
+    .card:hover { border-color: var(--accent); transform: translateY(-3px); }
+    .card h3 { font-family: var(--font-head); font-size: 1rem; color: var(--accent); margin-bottom: 0.4rem; }
+    .card p { font-size: 0.88rem; color: var(--muted); }
+
+    /* ── Skills ── */
+    .skills-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1.2rem; margin-top: 2.5rem; }
+    .skill-item {
+      background: var(--bg); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 1.2rem 1.4rem;
+      transition: border-color var(--transition);
+    }
+    .skill-item:hover { border-color: var(--accent); }
+    .skill-top { display: flex; justify-content: space-between; margin-bottom: 0.75rem; font-size: 0.88rem; }
+    .skill-name { color: var(--white); font-weight: 500; }
+    .skill-pct { color: var(--accent); font-size: 0.78rem; }
+    .bar-track { height: 4px; background: var(--border); border-radius: 99px; overflow: hidden; }
+    .bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      border-radius: 99px;
+      transform-origin: left;
+      animation: grow 1s ease forwards;
+    }
+    @keyframes grow { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+
+    /* ── Projects ── */
+    .section-header { margin-bottom: 2.5rem; }
+    .ce-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.4rem; margin-top: 2rem; }
+    .ce-card {
+      border: 1px solid var(--border); border-radius: var(--radius);
+      background: var(--bg); padding: 1.8rem;
+      display: flex; flex-direction: column; gap: 0.75rem;
+      transition: border-color var(--transition), transform var(--transition);
+    }
+    .ce-card:hover { border-color: var(--accent); transform: translateY(-2px); }
+    .ce-ico {
+      width: 38px; height: 38px; border-radius: 50%;
+      background: rgba(201,168,108,0.1); border: 1px solid rgba(201,168,108,0.25);
+      display: flex; align-items: center; justify-content: center; font-size: 16px;
+    }
+    .ce-title { font-family: var(--font-head); font-size: 1.05rem; color: var(--white); }
+    .ce-org { font-family: var(--font-ui); font-size: 10px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); }
+    .project-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1.5rem; }
+    .project-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius); overflow: hidden;
+      transition: transform var(--transition), border-color var(--transition), box-shadow var(--transition);
+      display: flex; flex-direction: column;
+    }
+    .project-card:hover { transform: translateY(-5px); border-color: var(--accent); box-shadow: 0 12px 40px rgba(201,168,108,0.08); }
+    .project-thumb {
+      height: 160px; display: flex; align-items: center;
+      justify-content: center; font-size: 2.5rem;
+      position: relative; overflow: hidden;
+    }
+    .project-body { padding: 1.4rem; flex: 1; display: flex; flex-direction: column; }
+    .project-tags { display: flex; gap: 0.4rem; flex-wrap: wrap; margin-bottom: 0.75rem; }
+    .tag {
+      font-size: 0.68rem; letter-spacing: 0.08em; text-transform: uppercase;
+      padding: 0.2rem 0.6rem; border: 1px solid var(--border);
+      border-radius: 99px; color: var(--muted);
+    }
+    .project-body h3 { font-family: var(--font-head); font-size: 1.15rem; color: var(--white); margin-bottom: 0.5rem; }
+    .project-body p { font-size: 0.88rem; color: var(--muted); flex: 1; }
+
+    /* ── Achievements / Certifications ── */
+
+    /* ── Contact ── */
+    .co-grid { display: grid; grid-template-columns: 1fr 1.15fr; gap: 5rem; align-items: start; margin-top: 2.5rem; }
+    .co-left h3 {
+      font-family: var(--font-disp);
+      font-size: 1.8rem; font-weight: 300; color: var(--white);
+      margin-bottom: 1rem; line-height: 1.3;
+    }
+    .co-left > p { font-size: 0.95rem; color: var(--muted); line-height: 1.9; margin-bottom: 2rem; }
+    .co-list { display: flex; flex-direction: column; gap: 0.9rem; }
+    .co-link {
+      display: flex; align-items: center; gap: 1rem;
+      color: var(--text); font-size: 13.5px;
+      border: 1px solid var(--border); border-radius: 5px;
+      padding: 0.9rem 1.1rem; background: var(--surface2);
+      transition: border-color 0.2s, background 0.2s, color 0.2s;
+    }
+    .co-link:hover { border-color: var(--accent); background: rgba(201,168,108,0.07); color: var(--white); }
+    .co-ico {
+      width: 34px; height: 34px; flex-shrink: 0;
+      background: var(--surface); border-radius: 4px;
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--font-ui); font-size: 11px; font-weight: 700; color: var(--muted);
+    }
+
+    /* ── Contact Form ── */
+    .co-form { display: flex; flex-direction: column; gap: 1.1rem; }
+    .f-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.1rem; }
+    .field { display: flex; flex-direction: column; gap: 0.4rem; }
+    .field label {
+      font-family: var(--font-ui); font-size: 10px; font-weight: 700;
+      letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted);
+    }
+    .field input, .field textarea {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 4px; padding: 0.82rem 1rem;
+      font-family: var(--font-body); font-size: 14px;
+      font-weight: 300; color: var(--text);
+      outline: none; resize: none;
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .field input:focus, .field textarea:focus { border-color: var(--accent); }
+    .field input::placeholder, .field textarea::placeholder { color: var(--muted); opacity: 0.7; }
+    .field textarea { min-height: 130px; }
+    .char-count { font-size: 0.75rem; color: var(--muted); text-align: right; }
+    .form-status {
+      font-size: 0.88rem; color: #6ab070;
+      padding: 0.6rem 1rem; background: rgba(106,176,112,0.1);
+      border: 1px solid rgba(106,176,112,0.2);
+      border-radius: 4px; display: none;
+    }
+    .form-status.show { display: block; }
+    .error { font-size: 0.78rem; color: #e06060; min-height: 1rem; }
+
+    /* ── Footer ── */
+    .site-footer {
+      background: var(--surface); border-top: 1px solid var(--border);
+      padding: 2rem 0;
+    }
+    .footer-inner {
+      display: flex; justify-content: space-between; align-items: center;
+      flex-wrap: wrap; gap: 1rem;
+      font-size: 0.82rem; color: var(--muted);
+    }
+    .footer-links { display: flex; gap: 1.5rem; }
+    .footer-links a { color: var(--muted); transition: color var(--transition); }
+    .footer-links a:hover { color: var(--accent); }
+
+    /* ── Responsive ── */
+    @media (max-width: 900px) {
+      .ce-grid { grid-template-columns: repeat(2,1fr); }
+    }
+    @media (max-width: 768px) {
+      .ce-grid { grid-template-columns: 1fr; }
+      .hero-inner { grid-template-columns: 1fr; }
+      .monogram { width: 110px; height: 110px; font-size: 2rem; }
+      .about-grid { grid-template-columns: 1fr; }
+      .co-grid { grid-template-columns: 1fr; gap: 3rem; }
+      .f-row { grid-template-columns: 1fr; }
+      .craftory-feature { grid-template-columns: 1fr; gap: 2rem; }
+      .craftory-highlights { grid-template-columns: 1fr; }
+      .nav-menu { display: none; flex-direction: column; position: absolute; top: 64px; left: 0; right: 0; background: var(--bg); padding: 1rem 1.5rem 2rem; border-bottom: 1px solid var(--border); gap: 1.2rem; }
+      .nav-menu.open { display: flex; }
+      .nav-toggle { display: block; }
+      .section-header { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Header -->
+<header class="site-header">
+  <div class="container header-inner">
+    <a href="#home" class="logo"><span>Guru</span>Sravanthi</a>
+    <nav aria-label="Primary">
+      <button id="navToggle" class="nav-toggle" aria-expanded="false" aria-controls="navMenu" aria-label="Toggle navigation">
+        <span class="bar"></span><span class="bar"></span><span class="bar"></span>
+      </button>
+      <ul id="navMenu" class="nav-menu">
+        <li><a href="#home" class="nav-link">Home</a></li>
+        <li><a href="#about" class="nav-link">About</a></li>
+        <li><a href="#skills" class="nav-link">Skills</a></li>
+        <li><a href="#projects" class="nav-link">Projects</a></li>
+        <li><a href="#achievements" class="nav-link">Achievements</a></li>
+        <li><a href="#contact" class="nav-link">Contact</a></li>
+        <li>
+          <button class="theme-toggle" id="themeToggle" aria-label="Toggle light/dark mode">
+            <span class="toggle-icon sun">☀️</span>
+            <span class="toggle-icon moon">🌙</span>
+          </button>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<!-- Hero -->
+<section id="home" class="hero section">
+  <div class="container hero-inner">
+    <div class="hero-text">
+      <p class="hero-eyebrow">B.Tech · CS-AI · QISCET</p>
+      <h1>Hi, I'm <em>Sravanthi</em>,<br>a software &amp; web developer.</h1>
+      <p class="hero-sub">Passionate about Web , android  &amp; AI applications. Building clean, accessible projects — from responsive websites to biometric systems.</p>
+      <div class="hero-cta">
+        <a href="#projects" class="btn">View Projects</a>
+        <a href="#contact" class="btn btn-ghost">Contact Me</a>
+      </div>
+    </div>
+    <div class="monogram" aria-hidden="true">GS</div>
+  </div>
+</section>
+
+<!-- About -->
+<section id="about" class="section">
+  <div class="container">
+    <h2 class="section-title">About</h2>
+    <div class="about-grid">
+      <div>
+        <p> I am a 3rd-year B.Tech student at QIS College of Engineering & Technology, passionate about building practical and impactful applications. My work spans responsive web interfaces, Android development, and AI-integrated solutions, focusing on data-driven UIs, accessibility, and clean code. I thrive on learning new technologies and collaborating on projects that solve real-world problems.
+        </p>
+        <ul class="about-list">
+          <li><strong>Branch:</strong> CS-AI (2023 – 2027)</li>
+          <li><strong>CGPA:</strong> 7.86 / 10.0</li>
+          <li><strong>Interests:</strong> Web Development, AI Applications</li>
+          <li><strong>Location:</strong> Ongole, Andhra Pradesh</li>
+          <li><strong>Phone:</strong> 6302567838</li>
+          <li><strong>Email:</strong> sravanthijampala31@gmail.com</li>
+        </ul>
+      </div>
+      <div class="about-cards">
+        <div class="card">
+          <h3>Education</h3>
+          <p>B.Tech in Computer Science (AI), III Year — QISCET</p>
+        </div>
+        <div class="card">
+          <h3>Focus Areas</h3>
+          <p>UI Components, REST APIs, Responsive Design, AI Applications</p>
+        </div>
+        <div class="card">
+          <h3>Soft Skills</h3>
+          <p>Quick Learner · Team Player · Adaptability · Smart Worker</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Skills -->
+<section id="skills" class="section alt">
+  <div class="container">
+    <h2 class="section-title">Skills</h2>
+    <div class="skills-grid" id="skillsGrid"></div>
+  </div>
+</section>
+
+<!-- Projects -->
+<section id="projects" class="section">
+  <div class="container">
+    <div class="section-header">
+      <h2 class="section-title">Projects</h2>
+    </div>
+    <div id="projectGrid" class="project-grid" aria-live="polite"></div>
+  </div>
+</section>
+
+<!-- Achievements -->
+<section id="achievements" class="section alt">
+  <div class="container">
+    <h2 class="section-title">Achievements</h2>
+    <div class="ce-grid" style="margin-bottom:3rem;" id="certGrid"></div>
+   <!-- <h3 style="font-family:var(--font-head);color:var(--white);font-size:1.3rem;margin-bottom:1.5rem;">Notable Achievements</h3>-->
+    <div class="ce-grid" id="achieveGrid"></div>
+  </div>
+</section>
+
+<!-- Contact -->
+<section id="contact" class="section">
+  <div class="container">
+    <h2 class="section-title">Contact</h2>
+    <div class="co-grid">
+      <div class="co-left">
+        <h3>Open to opportunities, collaborations &amp; conversations.</h3>
+        <p>I'm actively seeking internship roles and freelance projects in full-stack and frontend development. If you have a role, a project idea, or just want to connect — I'd love to hear from you. Response within 24 hours.</p>
+        <div class="co-list">
+          <a href="mailto:sravanthijampala31@gmail.com" class="co-link">
+            <span class="co-ico">✉</span>
+            sravanthijampala31@gmail.com
+          </a>
+          <a href="tel:+916302567838" class="co-link">
+            <span class="co-ico">☎</span>
+            +91 63025 67838
+          </a>
+          <a href="https://linkedin.com/in/guru-sravanthi-jampala-790541373/" target="_blank" class="co-link">
+            <span class="co-ico">in</span>
+            LinkedIn profile
+          </a>
+          <a href="https://github.com/sravanthijampala10-dev" target="_blank" class="co-link">
+            <span class="co-ico">gh</span>
+            GitHub profile
+          </a>
+        </div>
+      </div>
+
+      <form class="co-form" id="contactForm" novalidate>
+        <div class="f-row">
+          <div class="field">
+            <label for="firstName">First Name</label>
+            <input type="text" id="firstName" placeholder="First name" required />
+            <span class="error" id="firstNameError"></span>
+          </div>
+          <div class="field">
+            <label for="lastName">Last Name</label>
+            <input type="text" id="lastName" placeholder="Last name" />
+          </div>
+        </div>
+        <div class="field">
+          <label for="email">Email Address</label>
+          <input type="email" id="email" placeholder="you@example.com" required />
+          <span class="error" id="emailError"></span>
+        </div>
+        <div class="field">
+          <label for="subject">Subject</label>
+          <input type="text" id="subject" placeholder="Internship · Project · Collaboration" />
+        </div>
+        <div class="field">
+          <label for="message">Message</label>
+          <textarea id="message" placeholder="Tell me about the opportunity or what you have in mind..." required maxlength="500"></textarea>
+          <span class="char-count" id="charCount">0 / 500</span>
+          <span class="error" id="messageError"></span>
+        </div>
+        <div class="form-status" id="formStatus">✓ Message sent! I'll get back to you within 24 hours.</div>
+        <button type="submit" class="btn btn-solid" id="sbtn" style="align-self:flex-start">Send Message →</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <p>© <span id="year"></span> Jampala Guru Sravanthi · Student Portfolio</p>
+    <div class="footer-links">
+      <a href="#home">Top</a>
+      <a href="#projects">Projects</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Year
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  // ── Theme Toggle ──
+  const html = document.documentElement;
+  const themeToggle = document.getElementById('themeToggle');
+  const savedTheme = localStorage.getItem('gs-theme') || 'dark';
+  html.setAttribute('data-theme', savedTheme);
+
+  themeToggle.addEventListener('click', () => {
+    const current = html.getAttribute('data-theme');
+    const next = current === 'dark' ? 'light' : 'dark';
+    html.setAttribute('data-theme', next);
+    localStorage.setItem('gs-theme', next);
+  });
+
+  // ── Nav toggle ──
+  const navToggle = document.getElementById('navToggle');
+  const navMenu  = document.getElementById('navMenu');
+  navToggle.addEventListener('click', () => {
+    const open = navMenu.classList.toggle('open');
+    navToggle.setAttribute('aria-expanded', open);
+  });
+
+  // ── Skills ──
+  const skills = [
+    { name: 'HTML5',           pct: 90 },
+    { name: 'CSS3',            pct: 88 },
+    { name: 'JavaScript',      pct: 70 },
+    { name: 'React.js',        pct: 73 },
+    { name: 'Python',          pct: 92 },
+    { name: 'Java',            pct: 65 },
+    { name: 'C',               pct: 84},
+    { name: 'MongoDB',         pct: 60 },
+    { name: 'Flask/Django',    pct: 55 },
+    { name: 'Android Studio',  pct: 72 },
+  ];
+  const skillsGrid = document.getElementById('skillsGrid');
+  skills.forEach(s => {
+    skillsGrid.innerHTML += `
+      <div class="skill-item">
+        <div class="skill-top">
+          <span class="skill-name">${s.name}</span>
+          <span class="skill-pct">${s.pct}%</span>
+        </div>
+        <div class="bar-track"><div class="bar-fill" style="width:${s.pct}%"></div></div>
+      </div>`;
+  });
+
+  // ── Projects ──
+  const projects = [
+    {
+      title: 'Craftory',
+      desc: 'A handmade crafts marketplace built with React. Browse, list, and purchase unique handcrafted items with product filtering and a cart system.',
+      tags: ['React', 'Web', 'E-commerce'],
+      emoji: '🧵',
+      bg: 'linear-gradient(135deg,#1e1407,#2a1d09)',
+    },
+    {
+      title: 'A-Z Vision Care Website',
+      desc: 'Fully responsive website for an eye care clinic using HTML, CSS, and JavaScript. Focused on clean UI, accessibility, and mobile responsiveness.',
+      tags: ['HTML', 'CSS', 'JS', 'Web'],
+      emoji: '👁',
+      bg: 'linear-gradient(135deg,#071620,#091e2a)',
+    },
+    {
+      title: 'Biometric EVM',
+      desc: 'A biometric authentication-based electronic voting system ensuring secure and verified voting using fingerprint/biometric data.',
+      tags: ['Android', 'Security'],
+      emoji: '🗳️',
+      bg: 'linear-gradient(135deg,#0d0d1a,#131326)',
+    },
+    {
+      title: 'Weather Application',
+      desc: 'Real-time weather app using third-party API integration to fetch and display live weather data based on user location input.',
+      tags: ['JS', 'REST API', 'Web'],
+      emoji: '🌤',
+      bg: 'linear-gradient(135deg,#071a0f,#0d2617)',
+    },
+    {
+      title: 'Personal Portfolio',
+      desc: 'Designed and developed a personal portfolio to showcase projects, technical skills, and achievements with a modern, responsive layout.',
+      tags: ['HTML', 'CSS', 'JS', 'Web'],
+      emoji: '🗂',
+      bg: 'linear-gradient(135deg,#1a0b07,#251308)',
+    },
+  ];
+
+  function renderProjects() {
+    const grid = document.getElementById('projectGrid');
+    grid.innerHTML = '';
+    projects.forEach(p => {
+      grid.innerHTML += `
+        <div class="project-card">
+          <div class="project-thumb" style="background:${p.bg}">${p.emoji}</div>
+          <div class="project-body">
+            <div class="project-tags">${p.tags.map(t => `<span class="tag">${t}</span>`).join('')}</div>
+            <h3>${p.title}</h3>
+            <p>${p.desc}</p>
+          </div>
+        </div>`;
+    });
+  }
+  renderProjects();
+
+  // ── Certifications ──
+  const certs = [
+    { ico: '🐍', name: 'Python Programming',          org: 'Cisco' },
+    { ico: '🐍', name: 'Python for Beginners',         org: 'Infosys Springboard' },
+    { ico: '☕', name: 'Java Programming',              org: 'NPTEL' },
+    { ico: '🎨', name: 'CSS Certification',            org: 'HackerRank' },
+    { ico: '💻', name: 'Frontend Development',         org: 'Infosys Springboard' },
+    { ico: '☁️', name: 'AWS AI-ML Virtual Internship', org: 'Amazon Web Services' },
+    { ico:'📊', name: 'Data Analytics with Python job simulation', org: 'Deloitte' },
+    { ico:'🤖', name: ' Introduction to Generative AI studio', org: 'Google Cloud' },
+    { ico:'🎓', name: 'Pragathi path to future - cohort 7', org: ' Infosys Springboard' },
+  ];
+  const certGrid = document.getElementById('certGrid');
+  certs.forEach(c => {
+    certGrid.innerHTML += `
+      <div class="ce-card">
+        <div class="ce-ico">${c.ico}</div>
+        <p class="ce-title">${c.name}</p>
+        <p class="ce-org">${c.org}</p>
+      </div>`;
+  });
+
+  // ── Achievements ──
+ // const achievements = [
+  //  { ico: '🏆', name: 'College App Showcase — Top 10', org: 'Dynamic form builder using JSON → DOM' },
+  //  { ico: '🎖️', name: 'Web Design Mini-Project',       org: 'Responsive portfolio with JS tab switcher' },
+   // { ico: '☁️', name: 'AWS AI-ML Virtual Internship',  org: 'Hands-on cloud ML services — Amazon' },
+  //];
+  const achieveGrid = document.getElementById('achieveGrid');
+  achievements.forEach(a => {
+    achieveGrid.innerHTML += `
+      <div class="ce-card">
+        <div class="ce-ico">${a.ico}</div>
+        <p class="ce-title">${a.name}</p>
+        <p class="ce-org">${a.org}</p>
+      </div>`;
+  });
+
+  // ── Contact Form ──
+  const contactForm = document.getElementById('contactForm');
+  const msgField    = document.getElementById('message');
+  const charCount   = document.getElementById('charCount');
+  const formStatus  = document.getElementById('formStatus');
+  const sbtn        = document.getElementById('sbtn');
+
+  msgField.addEventListener('input', () => {
+    charCount.textContent = `${msgField.value.length} / 500`;
+  });
+
+  contactForm.addEventListener('submit', e => {
+    e.preventDefault();
+    ['firstNameError', 'emailError', 'messageError'].forEach(id => {
+      document.getElementById(id).textContent = '';
+    });
+    formStatus.classList.remove('show');
+
+    let valid = true;
+
+    if (!document.getElementById('firstName').value.trim()) {
+      document.getElementById('firstNameError').textContent = 'First name is required.';
+      valid = false;
+    }
+    const emailVal = document.getElementById('email').value.trim();
+    if (!emailVal) {
+      document.getElementById('emailError').textContent = 'Email is required.';
+      valid = false;
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailVal)) {
+      document.getElementById('emailError').textContent = 'Please enter a valid email address.';
+      valid = false;
+    }
+    if (!msgField.value.trim()) {
+      document.getElementById('messageError').textContent = 'Message is required.';
+      valid = false;
+    }
+
+    if (valid) {
+      sbtn.textContent = 'Sending…';
+      sbtn.disabled = true;
+      setTimeout(() => {
+        formStatus.classList.add('show');
+        contactForm.reset();
+        charCount.textContent = '0 / 500';
+        sbtn.textContent = 'Send Message →';
+        sbtn.disabled = false;
+      }, 900);
+    }
+  });
+</script>
+</body>
+</html>
